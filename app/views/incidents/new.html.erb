@@ -1,0 +1,24 @@
+<style>
+	.input {
+		margin: 5px;
+	}
+</style>
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-4">
+			
+			<%= simple_form_for @incident, url: incidents_path, method: :post do |f| %>
+				<%= f.input :title, label: 'Title', input_html: { class: 'form-control form-control-sm input' } %>
+				<%= f.input :description, label: 'Description', input_html: { class: 'form-control form-control-sm input' } %>
+					<select name="sev" class="form-select form-control form-control-sm input">
+					  <option selected>Nothing Selected</option>
+					  <option value="1">Sev0</option>
+					  <option value="2">Sev1</option>
+					  <option value="3">Sev2</option>
+					</select>		
+				<%= f.button :submit, :value => "Create", input_html: { class: 'btn btn-primary btn-sm input' } %>						
+			<% end %>
+		</div>
+	</div>	
+</div>
