@@ -1,6 +1,6 @@
 databases:
   - name: rootly
-    databaseName: rootly_production
+    databaseName: rootly
     user: rootly
 
 services:
