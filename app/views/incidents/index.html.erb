@@ -1,5 +1,7 @@
 <div class="container">
-    <h1>All The Incidents</h1>
+        <h5>All The Incidents</h5>
+        <a style="margin-bottom: 10px;" href="/incidents/new" class="btn btn-primary btn-sm float-right" role="button" >Create New Incident</a>
+    
     <table class="table">
         <thead>
             <tr>
@@ -16,7 +18,7 @@
                     <td><%= i.title %></td>
                     <td><%= i.description %></td>
                     <td><%= i.severity %></td>
-                    <td><%= i.created_at.strftime("%Y %M %D") %></td>
+                    <td><%= i.created_at.strftime("%m-%d-%Y at %I:%M %p") %></td>
                 
             </tr>
             <% end %>

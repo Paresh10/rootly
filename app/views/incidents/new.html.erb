@@ -5,8 +5,9 @@
 </style>
 
 <div class="container">
+<h5>Create a new Incident here</h5>
 	<div class="row">
-		<div class="col-sm-4">
+		<div class="col-sm-6">
 			
 			<%= simple_form_for @incident, url: incidents_path, method: :post do |f| %>
 				<%= f.input :title, label: 'Title', input_html: { class: 'form-control form-control-sm input' } %>
@@ -17,7 +18,7 @@
 					  <option value="sev1">Sev1</option>
 					  <option value="sev2">Sev2</option>
 					</select>		
-				<%= f.button :submit, :value => "Create", input_html: { class: 'btn btn-primary btn-sm input' } %>						
+				<%= f.button :submit, :value => "Create", class: 'btn btn-primary btn-sm input' %>						
 			<% end %>
 		</div>
 	</div>	
