@@ -1,10 +1,22 @@
 class IncidentsController < ApplicationController
 
 	def index
-		Incident.all
+		@incidents = Incident.all
+
 	end
 
 	def new
 		@incident = Incident.new
+	end
+
+	def create
+		Incident.create!(
+			title: params[:incident][:title],
+			description: params[:incident][:description],
+			severity: params[:severity],
+			created_at: DateTime.now
+		)
+
+		redirect_to '/'
 	end
 end
