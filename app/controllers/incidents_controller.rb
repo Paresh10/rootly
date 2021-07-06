@@ -7,6 +7,8 @@ class IncidentsController < ApplicationController
 
 	def new
 		@incident = Incident.new
+
+		render "new"
 	end
 
 	def create
