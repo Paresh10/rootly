@@ -3,4 +3,5 @@
   root to: 'incidents#index'
   resource :incidents, only: [:index, :show, :create]
   match '/incidents/new',    to: 'incidents#new', via: [:get, :post]
+  match '/incidents/rootly_declare_title',    to: 'incidents#rootly_declare_title', via: [:get, :post]
 end

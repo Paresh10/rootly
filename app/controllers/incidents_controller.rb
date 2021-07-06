@@ -8,6 +8,8 @@ class IncidentsController < ApplicationController
 	def new
 		@incident = Incident.new
 
+		data = params
+		puts params
 		render "new"
 	end
 
