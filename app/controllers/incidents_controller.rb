@@ -10,8 +10,10 @@ class IncidentsController < ApplicationController
 		@incident = Incident.new
 
 		data = params
+		puts "params"
 		puts params
-		render "new"
+		@text = "Test Test"
+		render json: @text
 	end
 
 
