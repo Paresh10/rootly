@@ -39,8 +39,8 @@ class IncidentsController < ApplicationController
 			uri = URI.parse("https://slack.com/api/dialog.open")
 			http.post(uri, @block.to_json, {
 					"Content-Type" => "application/json",
-					"Accept" => "application/json"
-					"Authorization" => ENV['API_KEY'],
+					"Accept" => "application/json",
+					"Authorization" => ENV['API_KEY']
 			})
 
 			respond_to do |format|
