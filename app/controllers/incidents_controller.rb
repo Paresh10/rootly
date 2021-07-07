@@ -13,7 +13,6 @@ class IncidentsController < ApplicationController
 		@incident = Incident.new
 
 	@block =	{
-			"token": params[:token],
 		  "trigger_id": params[:trigger_id],
 		  "dialog": {
 		    "title": "Request a Ride",
@@ -35,19 +34,19 @@ class IncidentsController < ApplicationController
 		  }
 		}
 
-
+		options = {
+			"Content-type": "application/json",
+			"Authorization": ENV['API_KEY'],
+			"name":"something-urgent"
+		}
 
 		uri = URI.parse("https://slack.com/api/dialog.open")
     http = Net::HTTP.new(uri.host, uri.port)
 		http.use_ssl = true
-    req = Net::HTTP::Post.new(uri.path, 'Content-Type' => 'application/json')
+    req = Net::HTTP::Post.new(uri.path, options)
     req.body = @block.to_json
     res = http.request(req)
     puts "response #{res.body}"
-
-		puts "@block['trigger_id']"
-		puts res.body
-
 	end
 
 
