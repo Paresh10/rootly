@@ -10,9 +10,8 @@ class IncidentsController < ApplicationController
 
 	def new
 		@incident = Incident.new
-		uri = URI.parse("https://slack.com/api/dialog.open	")
+		uri = URI.parse("https://slack.com/api/dialog.open")
 		request = Net::HTTP::Post.new(uri.request_uri)
-		http.request(request)
 
 	@test =	{
 		  "label": "Email Address",
@@ -21,7 +20,6 @@ class IncidentsController < ApplicationController
 		  "subtype": "email",
 		  "placeholder": "you@example.com"
 		}
-		puts(request.form)
 		render json: @test
 	end
 
