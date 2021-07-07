@@ -3,6 +3,7 @@ class IncidentsController < ApplicationController
 	require "net/http"
 	require "uri"
 	require 'json'
+	responders :flash, :http_cache
 
 	def index
 		@incidents = Incident.all
@@ -36,7 +37,10 @@ class IncidentsController < ApplicationController
 			  }
 			}
 
+
 			uri = URI.parse("https://slack.com/api/dialog.open")
+			http = Net::HTTP.new(uri.host, uri.port)
+			http.use_ssl = true
 			http.post(uri, @block.to_json, {
 					"Content-Type" => "application/json",
 					"Accept" => "application/json",
@@ -44,7 +48,8 @@ class IncidentsController < ApplicationController
 			})
 
 			respond_to do |format|
-				format.js
+				format.html
+			  format.js
 			end
 	end
 
