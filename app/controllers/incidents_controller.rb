@@ -1,5 +1,7 @@
 class IncidentsController < ApplicationController
 	skip_before_action :verify_authenticity_token
+	require "net/http"
+	require "uri"
 
 	def index
 		@incidents = Incident.all
@@ -8,12 +10,19 @@ class IncidentsController < ApplicationController
 
 	def new
 		@incident = Incident.new
+		uri = URI.parse("https://slack.com/api/dialog.open	")
+		request = Net::HTTP::Post.new(uri.request_uri)
+		http.request(request)
 
-		data = params
-		puts "params"
-		puts params
-		@text = "Test Test"
-		render json: @text
+	@test =	{
+		  "label": "Email Address",
+		  "name": "email",
+		  "type": "text",
+		  "subtype": "email",
+		  "placeholder": "you@example.com"
+		}
+		puts(request.form)
+		render json: @test
 	end
 
 
