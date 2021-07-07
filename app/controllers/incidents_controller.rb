@@ -11,41 +11,43 @@ class IncidentsController < ApplicationController
 
 	def new
 		@incident = Incident.new
-	@test =	{
-		  "label": "Email Address",
-		  "name": "email",
-		  "type": "text",
-		  "subtype": "email",
-		  "placeholder": "you@example.com",
-			blocks: [
-	      {
-	        "type": "input",
-	        "block_id": "note01",
-	        "label": {
-	          "type": "plain_text",
-	          "text": "Note"
-	        },
-	        "element": {
-	          "action_id": "content",
-	          "type": "plain_text_input",
-	          "placeholder": {
-	            "type": "plain_text",
-	            "text": "Take a note... "
-	          },
-	          "multiline": true
-	        }
-	      },
-			]
+
+	@block =	{
+			"token": params[:token],
+		  "trigger_id": params[:trigger_id],
+		  "dialog": {
+		    "title": "Request a Ride",
+		    "submit_label": "Request",
+		    "notify_on_cancel": true,
+		    "state": "Limo",
+		    "elements": [
+		        {
+		            "type": "text",
+		            "label": "Pickup Location",
+		            "name": "loc_origin"
+		        },
+		        {
+		            "type": "text",
+		            "label": "Dropoff Location",
+		            "name": "loc_destination"
+		        }
+		    ]
+		  }
 		}
 
-	@args = {
-	    trigger_id: params[:trigger_id],
-	    dialog: @test.to_json
-	  }
-		uri = URI("https://slack.com/api/dialog.open")
-		res = Net::HTTP::Post.new(uri, @args)
 
+
+		uri = URI.parse("https://slack.com/api/dialog.open")
+    http = Net::HTTP.new(uri.host, uri.port)
+		http.use_ssl = true
+    req = Net::HTTP::Post.new(uri.path, 'Content-Type' => 'application/json')
+    req.body = @block.to_json
+    res = http.request(req)
+    puts "response #{res.body}"
+
+		puts "@block['trigger_id']"
 		puts res.body
+
 	end
 
 
