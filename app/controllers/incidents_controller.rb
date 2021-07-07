@@ -11,42 +11,41 @@ class IncidentsController < ApplicationController
 
 	def new
 		@incident = Incident.new
+	end
 
-	@block =	{
-		  "trigger_id": params[:trigger_id],
-		  "dialog": {
-		    "title": "Request a Ride",
-		    "submit_label": "Request",
-		    "notify_on_cancel": true,
-		    "state": "Limo",
-		    "elements": [
-		        {
-		            "type": "text",
-		            "label": "Pickup Location",
-		            "name": "loc_origin"
-		        },
-		        {
-		            "type": "text",
-		            "label": "Dropoff Location",
-		            "name": "loc_destination"
-		        }
-		    ]
-		  }
-		}
+	def rootly_declare_title
+		@block =	{
+			  "trigger_id": params[:trigger_id],
+			  "dialog": {
+			    "title": "Request a Ride",
+			    "submit_label": "Request",
+			    "notify_on_cancel": true,
+			    "state": "Limo",
+			    "elements": [
+			        {
+			            "type": "text",
+			            "label": "Pickup Location",
+			            "name": "loc_origin"
+			        },
+			        {
+			            "type": "text",
+			            "label": "Dropoff Location",
+			            "name": "loc_destination"
+			        }
+			    ]
+			  }
+			}
 
-		options = {
-			"Content-type": "application/json",
-			"Authorization": ENV['API_KEY'],
-			"name":"something-urgent"
-		}
+			uri = URI.parse("https://slack.com/api/dialog.open")
+			http.post(uri, @block.to_json, {
+					"Content-Type" => "application/json",
+					"Accept" => "application/json"
+					"Authorization" => ENV['API_KEY'],
+			})
 
-		uri = URI.parse("https://slack.com/api/dialog.open")
-    http = Net::HTTP.new(uri.host, uri.port)
-		http.use_ssl = true
-    req = Net::HTTP::Post.new(uri.path, options)
-    req.body = @block.to_json
-    res = http.request(req)
-    puts "response #{res.body}"
+			respond_to do |format|
+				format.js
+			end
 	end
 
 
