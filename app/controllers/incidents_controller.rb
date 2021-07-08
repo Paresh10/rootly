@@ -55,14 +55,7 @@ class IncidentsController < ApplicationController
 				"Content-Type" => "application/json",
 				"Accept" => "application/json"
 		})
-
-		puts "trigger_id"
-		puts trigger_id
-
-		puts "ENV['API_KEY']"
-		puts ENV['API_KEY']
-
-		return
+		render "incidents/rootly_declare_title", :formats => [:js], :locals => {}
 
 	end
 
