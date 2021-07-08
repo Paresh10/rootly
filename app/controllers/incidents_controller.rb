@@ -18,6 +18,8 @@ class IncidentsController < ApplicationController
 
     trigger_id = params[:trigger_id]
 
+
+
     dialog = {
         "callback_id": "ryde-46e2b0",
         "title": "Request a Ride",
@@ -52,7 +54,15 @@ class IncidentsController < ApplicationController
 				"Accept" => "application/json"
 		})
 
+		puts "res.body"
 		puts res.body
+
+
+		puts "trigger_id"
+		puts trigger_id
+
+		puts "ENV['API_KEY']"
+		puts ENV['API_KEY']
 
 		respond_to do |format|
 			format.html
