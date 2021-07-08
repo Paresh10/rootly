@@ -51,10 +51,13 @@ class IncidentsController < ApplicationController
 		uri = URI.parse("https://slack.com/api/dialog.open")
 		http = Net::HTTP.new(uri.host, uri.port)
 		http.use_ssl = true
-		http.post(uri, api_data.to_json, {
+		res = http.post(uri, api_data.to_json, {
 				"Content-Type" => "application/json",
 				"Accept" => "application/json"
 		})
+
+		puts "res.body"
+		puts res.body
 		render "incidents/rootly_declare_title", :formats => [:js], :locals => {}
 
 	end
