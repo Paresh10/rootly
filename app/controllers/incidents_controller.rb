@@ -47,12 +47,12 @@ class IncidentsController < ApplicationController
         "dialog": dialog
     }
 
-		uri = URI.parse("https://slack.com/api/dialog.open")
+		uri = URI.parse("https://slack.com/api/dialog.open?token=#{ENV['API_KEY']}")
 		http = Net::HTTP.new(uri.host, uri.port)
 		http.use_ssl = true
 		res = http.post(uri, api_data.to_json, initheader = {
-				"Content-Type" => "application/json; charset=utf-8",
-				"token" => ENV['API_KEY']
+				"Content-Type" => "application/json; charset=utf-8"
+				# "token" => ENV['API_KEY']
 		})
 
 		puts "ENV['API_KEY']"
