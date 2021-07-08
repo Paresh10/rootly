@@ -23,6 +23,7 @@ class IncidentsController < ApplicationController
 
 
     dialog = {
+				"trigger_id": trigger_id,
         "callback_id": "ryde-46e2b0",
         "title": "Request a Ride",
         "submit_label": "Request",
@@ -43,19 +44,19 @@ class IncidentsController < ApplicationController
     }
 
     api_data = {
-        "token": ENV['API_KEY'],
-        "trigger_id": trigger_id,
-        "dialog": dialog.to_json
+        "dialog": dialog
     }
 
 		uri = URI.parse("https://slack.com/api/dialog.open")
 		http = Net::HTTP.new(uri.host, uri.port)
 		http.use_ssl = true
-		res = http.post(uri, api_data.to_json, {
-				"Content-Type" => "application/json",
-				"Accept" => "application/json"
+		res = http.post(uri, api_data.to_json, initheader = {
+				"Content-Type" => "application/json; charset=utf-8",
+				"token" => ENV['API_KEY']
 		})
 
+		puts "ENV['API_KEY']"
+		puts ENV['API_KEY']
 		puts "res.body"
 		puts res.body
 		render "incidents/rootly_declare_title", :formats => [:js], :locals => {}
