@@ -4,6 +4,8 @@ class IncidentsController < ApplicationController
 	require "uri"
 	require 'json'
 	responders :flash, :http_cache
+	require 'dotenv'
+	Dotenv.load('./.env')
 
 	def index
 		@incidents = Incident.all
