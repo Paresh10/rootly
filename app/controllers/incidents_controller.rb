@@ -36,7 +36,7 @@ class IncidentsController < ApplicationController
 		        },
 		        {
 		            "type": "text",
-		            "label": "description",
+		            "label": "Description",
 		            "name": "description"
 		        },
 						{
@@ -83,6 +83,7 @@ class IncidentsController < ApplicationController
 
 
 def create_incident
+		params = JSON.parse(params[:payload])
 		puts params
 		Incident.create!(
 			title: params[:payload][:title],
