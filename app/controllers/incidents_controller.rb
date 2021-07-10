@@ -99,7 +99,7 @@ def create_incident
 			  "dialog": {
 					"name": params[:payload]['submission']['title'],
 					"is_private": false,
-					"team_id": params[:payload]'[team]'['id'],
+					"team_id": params[:payload]['team']['id'],
 					"creator": params[:payload]['user']['name']
 				}
 			}
