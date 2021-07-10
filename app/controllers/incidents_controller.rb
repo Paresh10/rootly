@@ -20,6 +20,7 @@ class IncidentsController < ApplicationController
 
     trigger_id = params[:trigger_id]
     dialog = {
+				"trigger_id": trigger_id,
         "title": "Request a Ride",
         "submit_label": "Request",
         "notify_on_cancel": TRUE,
@@ -49,8 +50,7 @@ class IncidentsController < ApplicationController
 		http.use_ssl = true
 		res = http.post(uri, api_data.to_json, initheader = {
 				"Content-Type" => "application/json; charset=utf-8",
-				"token": ENV['API_KEY'],
-				"trigger_id": trigger_id
+				"token": ENV['API_KEY']
 
 		})
 
@@ -58,7 +58,8 @@ class IncidentsController < ApplicationController
 		puts res.body
 		puts "trigger_id"
 		puts trigger_id
-		
+		puts api_data.to_json
+
 		render "incidents/rootly_declare_title", :formats => [:js], :locals => {}
 
 	end
