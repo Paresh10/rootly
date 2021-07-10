@@ -121,11 +121,14 @@ def create_incident
 
 end
 
-# 	def create
-# 		Incident.create!(
-# 			title: params[:payload][:title],
-# 			description: params[:payload][:description],
-# 			severity: params[:payload][:severity],
-# 			created_at: current_user.time_zone
-# 		)
-# end
+	def create
+		Incident.create!(
+			title: params[:payload][:title],
+			description: params[:payload][:description],
+			severity: params[:payload][:severity],
+			created_at: current_user.time_zone
+		)
+
+		# redirect_to '/'
+	end
+end
