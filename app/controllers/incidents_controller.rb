@@ -21,6 +21,7 @@ class IncidentsController < ApplicationController
     trigger_id = params[:trigger_id]
 	payload = 	{
 		  "trigger_id": trigger_id,
+			"token": ENV['API_KEY'],
 		  "dialog": {
 		    "callback_id": "ryde-46e2b0",
 		    "title": "Request a Ride",
@@ -42,9 +43,10 @@ class IncidentsController < ApplicationController
 		  }
 		}
 
+
 		headers  = {
 			"Content-Type" => "application/json; charset=utf-8",
-			"token": ENV['API_KEY']
+			"Authorization" => "Bearer " + ENV['API_KEY']
 		}
 
 		uri = URI.parse("https://slack.com/api/dialog.open")
