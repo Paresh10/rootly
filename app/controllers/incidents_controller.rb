@@ -90,7 +90,7 @@ def create_incident
 			title: params[:payload]['submission']['title'],
 			description: params[:payload]['submission']['description'],
 			severity: params[:payload]['submission']['severity'],
-			created_at: Datetime.now
+			created_at: DateTime.now
 		)
 
 		payload = 	{
