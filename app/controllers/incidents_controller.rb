@@ -85,6 +85,8 @@ class IncidentsController < ApplicationController
 def create_incident
 	puts"params"
 		puts params
+		puts params[:payload]
+		puts params[:payload][:submission]
 		Incident.create!(
 			title: params[:payload][:submission].title,
 			description: params[:payload][:submission].description,
