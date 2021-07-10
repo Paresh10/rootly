@@ -19,12 +19,7 @@ class IncidentsController < ApplicationController
 	def rootly_declare_title
 
     trigger_id = params[:trigger_id]
-
-
-
     dialog = {
-				"trigger_id": trigger_id,
-        "callback_id": "ryde-46e2b0",
         "title": "Request a Ride",
         "submit_label": "Request",
         "notify_on_cancel": TRUE,
@@ -49,16 +44,21 @@ class IncidentsController < ApplicationController
 
 		token = ENV['API_KEY'] || params[:token]
 
-		uri = URI.parse("https://slack.com/api/dialog.open?token=#{token}&channel=#{params[:channel_id]}&text=this is an oauth test...2&pretty=1")
+		uri = URI.parse("https://slack.com/api/dialog.open")
 		http = Net::HTTP.new(uri.host, uri.port)
 		http.use_ssl = true
 		res = http.post(uri, api_data.to_json, initheader = {
-				"Content-Type" => "application/json; charset=utf-8"
+				"Content-Type" => "application/json; charset=utf-8",
+				"token": ENV['API_KEY'],
+				"trigger_id": trigger_id
 
 		})
-		
+
 		puts "res.body"
 		puts res.body
+		puts "trigger_id"
+		puts trigger_id
+		
 		render "incidents/rootly_declare_title", :formats => [:js], :locals => {}
 
 	end
