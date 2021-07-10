@@ -9,7 +9,6 @@ class IncidentsController < ApplicationController
 
 	def index
 		@incidents = Incident.all
-
 	end
 
 	def new
@@ -87,9 +86,9 @@ def create_incident
 		puts params[:payload]
 
 		Incident.create!(
-			title: params[:payload]['submission']['title'],
-			description: params[:payload]['submission']['description'],
-			severity: params[:payload]['submission']['severity'],
+			title: params[:payload][:submission][:title],
+			description: params[:payload][:submission][:description],
+			severity: params[:payload][:submission][:severity],
 			created_at: DateTime.now
 		)
 
@@ -97,10 +96,10 @@ def create_incident
 			  "trigger_id": trigger_id,
 				"token": ENV['API_KEY'],
 			  "dialog": {
-					"name": params[:payload]['submission']['title'],
+					"name": params[:payload][:submission][:title],
 					"is_private": false,
-					"team_id": params[:payload]['team']['id'],
-					"creator": params[:payload]['user']['name']
+					"team_id": params[:payload][:team][:id],
+					"creator": params[:payload][:user][:name]
 				}
 			}
 
@@ -132,4 +131,6 @@ end
 
 		# redirect_to '/'
 	end
+
+
 end
