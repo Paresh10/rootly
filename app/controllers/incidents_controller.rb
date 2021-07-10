@@ -19,25 +19,28 @@ class IncidentsController < ApplicationController
 	def rootly_declare_title
 
     trigger_id = params[:trigger_id]
-    dialog = {
-				"trigger_id": trigger_id,
-        "title": "Request a Ride",
-        "submit_label": "Request",
-        "notify_on_cancel": TRUE,
-        "state": "Limo",
-        "elements": [
-            {
-                "type": "text",
-                "label": "Pickup Location",
-                "name": "loc_origin"
-            },
-            {
-                "type": "text",
-                "label": "Dropoff Location",
-                "name": "loc_destination"
-            }
-        ]
-    }
+	payload = 	{
+		  "trigger_id": trigger_id,
+		  "dialog": {
+		    "callback_id": "ryde-46e2b0",
+		    "title": "Request a Ride",
+		    "submit_label": "Request",
+		    "notify_on_cancel": true,
+		    "state": "Limo",
+		    "elements": [
+		        {
+		            "type": "text",
+		            "label": "Pickup Location",
+		            "name": "loc_origin"
+		        },
+		        {
+		            "type": "text",
+		            "label": "Dropoff Location",
+		            "name": "loc_destination"
+		        }
+		    ]
+		  }
+		}
 
 		headers  = {
 			"Content-Type" => "application/json; charset=utf-8",
@@ -47,14 +50,11 @@ class IncidentsController < ApplicationController
 		uri = URI.parse("https://slack.com/api/dialog.open")
 		http = Net::HTTP.new(uri.host, uri.port)
 		http.use_ssl = true
-		res = http.post(uri, dialog.to_json, headers)
+		res = http.post(uri, payload.to_json, headers)
 
 		puts "res.body"
 		puts res.body
-		puts "trigger_id"
-		puts trigger_id
-		puts 	"token"
-		puts ENV['API_KEY']
+
 
 		render "incidents/rootly_declare_title", :formats => [:js], :locals => {}
 
