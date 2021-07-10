@@ -83,20 +83,20 @@ class IncidentsController < ApplicationController
 
 
 def create_incident
-		params = JSON.parse(params[:payload])
+	puts"params"
 		puts params
 		Incident.create!(
-			title: params[:payload][:title],
-			description: params[:payload][:description],
-			severity: params[:payload][:severity],
-			created_at: current_user.time_zone
+			title: params[:payload][:submission].title,
+			description: params[:payload][:submission].description,
+			severity: params[:payload][:submission].severity,
+			created_at: Datetime.now
 		)
 
 		payload = 	{
 			  "trigger_id": trigger_id,
 				"token": ENV['API_KEY'],
 			  "dialog": {
-					"name": params[:payload][:title],
+					"name": params[:payload][:submission].title,
 					"is_private": false,
 					"team_id": params[:payload][:team].id,
 					"creator": params[:payload][:user].name
@@ -121,24 +121,11 @@ def create_incident
 
 end
 
-#
-# INFO -- : [4f755a79-9ebc-4277-ada4-770053ae4f16]   Parameters: {"payload"=>"{\"type\":\"dialog_submission\",\"token\":\"0UcG8yTyUwEmgDvQBvevPQQ1\",\"action_ts\":\"1625949942.943998\",\"team\":{\"id\":\"T026RA9B7T4\",\"domain\":\"coding-kgn2878\"},\"user\":{\"id\":\"U027407427K\",\"name\":\"paresh.sharma10\"},\"channel\":{\"id\":\"C026RA9BR8S\",\"name\":\"general\"},\"is_enterprise_install\":false,\"enterprise\":null,\"submission\":{\"loc_origin\":\"Hey\",\"loc_destination\":\"There\"},\"callback_id\":\"ryde-46e2b0\",\"response_url\":\"https:\\/\\/hooks.slack.com\\/app\\/T026RA9B7T4\\/2284957568240\\/kjwkqlbcXTVMd3uHSXYiC3BS\",\"state\":\"Limo\"}"}
-# Jul 10 03:45:43 PM  {"payload"=>"{\"type\":\"dialog_submission\",\"token\":\"0UcG8yTyUwEmgDvQBvevPQQ1\",\"action_ts\":\"1625949942.943998\",\"team\":{\"id\":\"T026RA9B7T4\",\"domain\":\"coding-kgn2878\"},\"user\":{\"id\":\"U027407427K\",\"name\":\"paresh.sharma10\"},\"channel\":{\"id\":\"C026RA9BR8S\",\"name\":\"general\"},\"is_enterprise_install\":false,\"enterprise\":null,\"submission\":{\"loc_origin\":\"Hey\",\"loc_destination\":\"There\"},\"callback_id\":\"ryde-46e2b0\",\"response_url\":\"https:\\/\\/hooks.slack.com\\/app\\/T026RA9B7T4\\/2284957568240\\/kjwkqlbcXTVMd3uHSXYiC3BS\",\"state\":\"Limo\"}", "controller"=>"incidents", "action"=>"create_incident"}
-
-
-
-
-
-
-
-	def create
-		Incident.create!(
-			title: params[:payload][:title],
-			description: params[:payload][:description],
-			severity: params[:payload][:severity],
-			created_at: current_user.time_zone
-		)
-
-		# redirect_to '/'
-	end
-end
+# 	def create
+# 		Incident.create!(
+# 			title: params[:payload][:title],
+# 			description: params[:payload][:description],
+# 			severity: params[:payload][:severity],
+# 			created_at: current_user.time_zone
+# 		)
+# end
