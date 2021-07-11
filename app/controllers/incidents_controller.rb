@@ -93,14 +93,19 @@ class IncidentsController < ApplicationController
 
 
 def create_incident
+		eval params[:payload][:enterprise] = ''
 
+		params = eval params[:payload]
 		puts"params"
-		puts eval params[:payload]
+		puts params
+
+		puts "Test"
+		puts params[:submission]
 
 		Incident.create!(
-			title: eval params[:payload][:submission][:title],
-			description: eval params[:payload][:submission][:description],
-			severity: eval params[:payload][:submission][:severity],
+			title: params[:submission][:title],
+			description: params[:submission][:description],
+			severity: params[:submission][:severity],
 			created_at: DateTime.now
 		)
 
@@ -108,10 +113,10 @@ def create_incident
 			  "trigger_id": trigger_id,
 				"token": ENV['API_KEY'],
 			  "dialog": {
-					"name": eval params[:payload][:submission][:title],
+					"name": params[:submission][:title],
 					"is_private": false,
-					"team_id": eval params[:payload][:team][:id],
-					"creator": eval params[:payload][:user][:name]
+					"team_id": params[:team][:id],
+					"creator": params[:user][:name]
 				}
 			}
 
