@@ -129,7 +129,7 @@ end
 				payload = 	{
 						"token": ENV['API_KEY'],
 						"exclude_archived": FALSE,
-						"types": public_channel,private_channel
+						"types": "public_channel"
 					}
 
 
