@@ -11,14 +11,13 @@ class IncidentsController < ApplicationController
 		@incidents = Incident.all
 
 		# data = {"payload"=>"{\"type\":\"dialog_submission\",\"token\":\"0UcG8yTyUwEmgDvQBvevPQQ1\",\"action_ts\":\"1626034400.480146\",\"team\":{\"id\":\"T026RA9B7T4\",\"domain\":\"coding-kgn2878\"},\"user\":{\"id\":\"U027407427K\",\"name\":\"paresh.sharma10\"},\"channel\":{\"id\":\"C026RA9BR8S\",\"name\":\"general\"},\"is_enterprise_install\":false,\"enterprise\":null,\"submission\":{\"title\":\"Hey\",\"description\":\"Hello\",\"severity\":\"sev0\"},\"callback_id\":\"ryde-46e2b0\",\"response_url\":\"https:\\/\\/hooks.slack.com\\/app\\/T026RA9B7T4\\/2259135896613\\/fMbsyMhae2jb69Y7lQ2Wo5lr\",\"state\":\"Limo\"}"}
-
-
+		#
 		#
 		# puts "Payload"
-		#
-		#
-		# payload = eval data['payload']
-		# puts payload[:submission][:title]
+		# # payload = eval data['payload']
+		# # puts payload[:submission][:title]
+		# json = JSON.parse(data['payload'])
+		# puts json['submission']
 
 	end
 
@@ -93,20 +92,18 @@ class IncidentsController < ApplicationController
 
 
 def create_incident
-		data = params
 
-		params = eval data['payload']
-		params[:enterprise] = ''
+		data = params
+		params = JSON.parse(data['payload'])
+		params['enterprise'] = ''
 		puts"params"
 		puts params
 
-		puts "Test"
-		puts params[:submission]
 
 		Incident.create!(
-			title: params[:submission][:title],
-			description: params[:submission][:description],
-			severity: params[:submission][:severity],
+			title: params['submission']['title'],
+			description: params['submission']['description'],
+			severity: params['submission']['severity'],
 			created_at: DateTime.now
 		)
 
@@ -114,10 +111,10 @@ def create_incident
 			  "trigger_id": trigger_id,
 				"token": ENV['API_KEY'],
 			  "dialog": {
-					"name": params[:submission][:title],
+					"name": params['submission']['title'],
 					"is_private": false,
-					"team_id": params[:team][:id],
-					"creator": params[:user][:name],
+					"team_id": params['team']['id'],
+					"creator": params['user']['name'],
 					"notify_on_close": true,
 				}
 			}
