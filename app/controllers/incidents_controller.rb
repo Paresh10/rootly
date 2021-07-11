@@ -93,9 +93,10 @@ class IncidentsController < ApplicationController
 
 
 def create_incident
-		eval params[:payload][:enterprise] = ''
+		data = params
 
-		params = eval params[:payload]
+		params = eval data['payload']
+		params[:enterprise] = ''
 		puts"params"
 		puts params
 
@@ -116,7 +117,8 @@ def create_incident
 					"name": params[:submission][:title],
 					"is_private": false,
 					"team_id": params[:team][:id],
-					"creator": params[:user][:name]
+					"creator": params[:user][:name],
+					"notify_on_close": true,
 				}
 			}
 
@@ -134,7 +136,7 @@ def create_incident
 		puts "res.body"
 		puts res.body
 
-		redirect_to '/'
+		redirect_to '/', :formats => [:js], :locals => {}
 
 end
 
