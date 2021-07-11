@@ -108,7 +108,6 @@ def create_incident
 		)
 
 		payload = 	{
-			  "trigger_id": trigger_id,
 				"token": ENV['API_KEY'],
 			  "dialog": {
 					"name": params['submission']['title'],
