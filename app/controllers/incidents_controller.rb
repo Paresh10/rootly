@@ -10,15 +10,15 @@ class IncidentsController < ApplicationController
 	def index
 		@incidents = Incident.all
 
-		data = {"payload"=>"{\"type\":\"dialog_submission\",\"token\":\"0UcG8yTyUwEmgDvQBvevPQQ1\",\"action_ts\":\"1626020557.622111\",\"team\":{\"id\":\"T026RA9B7T4\",\"domain\":\"coding-kgn2878\"},\"user\":{\"id\":\"U027407427K\",\"name\":\"paresh.sharma10\"},\"channel\":{\"id\":\"C026RA9BR8S\",\"name\":\"general\"},\"is_enterprise_install\":false,\"enterprise\":'',\"submission\":{\"title\":\"Hey\",\"description\":\"Hello\",\"severity\":\"sev0\"},\"callback_id\":\"ryde-46e2b0\",\"response_url\":\"https:\\/\\/hooks.slack.com\\/app\\/T026RA9B7T4\\/2255255645334\\/cjN1usxUOALyVpNhtEt7lb7X\",\"state\":\"Limo\"}", "controller"=>"incidents", "action"=>"create_incident"}
+		# data = {"payload"=>"{\"type\":\"dialog_submission\",\"token\":\"0UcG8yTyUwEmgDvQBvevPQQ1\",\"action_ts\":\"1626034400.480146\",\"team\":{\"id\":\"T026RA9B7T4\",\"domain\":\"coding-kgn2878\"},\"user\":{\"id\":\"U027407427K\",\"name\":\"paresh.sharma10\"},\"channel\":{\"id\":\"C026RA9BR8S\",\"name\":\"general\"},\"is_enterprise_install\":false,\"enterprise\":null,\"submission\":{\"title\":\"Hey\",\"description\":\"Hello\",\"severity\":\"sev0\"},\"callback_id\":\"ryde-46e2b0\",\"response_url\":\"https:\\/\\/hooks.slack.com\\/app\\/T026RA9B7T4\\/2259135896613\\/fMbsyMhae2jb69Y7lQ2Wo5lr\",\"state\":\"Limo\"}"}
 
 
-
-		puts "Payload"
-
-
-		payload = eval data['payload']
-		puts payload[:submission][:title]
+		#
+		# puts "Payload"
+		#
+		#
+		# payload = eval data['payload']
+		# puts payload[:submission][:title]
 
 	end
 
@@ -93,6 +93,10 @@ class IncidentsController < ApplicationController
 
 
 def create_incident
+	if params[:payload][:enterprise] == nil
+		 	params[:payload][:enterprise] = ''
+	end
+
 		params = eval params[:payload]
 		puts"params"
 		puts params
