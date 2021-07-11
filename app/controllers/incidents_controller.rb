@@ -14,13 +14,8 @@ class IncidentsController < ApplicationController
 
 
 
-		output = {result: :success, data: hash}
-
 		puts "Payload"
 
-  	# data.map { |k,v| puts "#{k} is #{v}"}
-
-		# puts @value
 
 		payload = eval data['payload']
 		puts payload[:submission][:title]
@@ -102,6 +97,10 @@ def create_incident
 		puts"params"
 		puts params
 
+		puts "Test"
+		puts params[:submission]
+
+		binding.pry
 		Incident.create!(
 			title: params[:submission][:title],
 			description: params[:submission][:description],
