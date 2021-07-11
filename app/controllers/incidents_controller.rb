@@ -82,7 +82,7 @@ class IncidentsController < ApplicationController
 
 
 def create_incident
-		params = params[:payload].to_json
+		# params = params[:payload].to_json
 		puts"params"
 		puts params
 
