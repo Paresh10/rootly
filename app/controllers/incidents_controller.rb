@@ -98,7 +98,7 @@ class IncidentsController < ApplicationController
 
 
 def create_incident
-		params = eval params['payload']
+		params = eval params[:payload]
 		puts"params"
 		puts params
 
