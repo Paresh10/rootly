@@ -5,4 +5,5 @@
   match '/incidents/new',    to: 'incidents#new', via: [:get, :post]
   match '/incidents/rootly_declare_title', to: 'incidents#rootly_declare_title', via: [:get, :post]
   match '/incidents/create_incident', to: 'incidents#create_incident', via: [:get, :post]
+  match '/incidents/rootly_list_channels', to: 'incidents#rootly_list_channels', via: [:get, :post]
 end

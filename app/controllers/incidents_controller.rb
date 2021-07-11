@@ -9,16 +9,6 @@ class IncidentsController < ApplicationController
 
 	def index
 		@incidents = Incident.all
-
-		# data = {"payload"=>"{\"type\":\"dialog_submission\",\"token\":\"0UcG8yTyUwEmgDvQBvevPQQ1\",\"action_ts\":\"1626034400.480146\",\"team\":{\"id\":\"T026RA9B7T4\",\"domain\":\"coding-kgn2878\"},\"user\":{\"id\":\"U027407427K\",\"name\":\"paresh.sharma10\"},\"channel\":{\"id\":\"C026RA9BR8S\",\"name\":\"general\"},\"is_enterprise_install\":false,\"enterprise\":null,\"submission\":{\"title\":\"Hey\",\"description\":\"Hello\",\"severity\":\"sev0\"},\"callback_id\":\"ryde-46e2b0\",\"response_url\":\"https:\\/\\/hooks.slack.com\\/app\\/T026RA9B7T4\\/2259135896613\\/fMbsyMhae2jb69Y7lQ2Wo5lr\",\"state\":\"Limo\"}"}
-		#
-		#
-		# puts "Payload"
-		# # payload = eval data['payload']
-		# # puts payload[:submission][:title]
-		# json = JSON.parse(data['payload'])
-		# puts json['submission']
-
 	end
 
 	def new
@@ -134,6 +124,32 @@ def create_incident
 
 end
 
+	def rootly_list_channels
+
+				payload = 	{
+						"token": ENV['API_KEY'],
+						"exclude_archived": FALSE,
+						"types": public_channel,private_channel
+					}
+
+
+				headers  = {
+					"Content-Type" => "application/x-www-form-urlencoded",
+					"Authorization" => "Bearer " + ENV['API_KEY']
+				}
+
+				uri = URI.parse("https://slack.com/api/conversations.list")
+				http = Net::HTTP.new(uri.host, uri.port)
+				http.use_ssl = true
+				res = http.post(uri, payload.to_json, headers)
+
+				puts "res.body"
+				puts res.body
+
+				render "incidents/rootly_list_channels", :formats => [:js], :locals => {}
+
+	end
+
 	def create
 		Incident.create!(
 			title: params[:payload][:title],
@@ -142,7 +158,7 @@ end
 			created_at: current_user.time_zone
 		)
 
-		# redirect_to '/'
+		redirect_to '/'
 	end
 
 
