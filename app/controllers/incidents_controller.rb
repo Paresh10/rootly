@@ -109,13 +109,11 @@ def create_incident
 
 		payload = 	{
 				"token": ENV['API_KEY'],
-			  "dialog": {
-					"name": params['submission']['title'],
-					"is_private": false,
-					"team_id": params['team']['id'],
-					"creator": params['user']['name'],
-					"notify_on_close": true,
-				}
+				"name": params['submission']['title'],
+				"is_private": false,
+				"team_id": params['team']['id'],
+				"creator": params['user']['name'],
+				"notify_on_close": true,
 			}
 
 
