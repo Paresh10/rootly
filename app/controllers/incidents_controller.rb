@@ -128,20 +128,17 @@ end
 
 				payload = 	{
 						"token": ENV['API_KEY'],
-						"exclude_archived": FALSE,
-						"types": "public_channel"
+						"exclude_archived": false,
+						"types": "public_channel",
+						"Content-Type" => "application/x-www-form-urlencoded",
+						"Authorization" => "Bearer " + ENV['API_KEY']
 					}
 
-
-				headers  = {
-					"Content-Type" => "application/x-www-form-urlencoded",
-					"Authorization" => "Bearer " + ENV['API_KEY']
-				}
 
 				uri = URI.parse("https://slack.com/api/conversations.list")
 				http = Net::HTTP.new(uri.host, uri.port)
 				http.use_ssl = true
-				res = http.post(uri, payload.to_json, headers)
+				res = http.post(uri, payload.to_json)
 
 				puts "res.body"
 				puts res.body
