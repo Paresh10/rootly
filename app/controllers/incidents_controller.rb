@@ -130,7 +130,7 @@ def create_incident
 		puts "res.body"
 		puts res.body
 
-		redirect_to '/', :formats => [:js], :locals => {}
+		render nothing: true, status: 200, :formats => [:js], :locals => {}
 
 end
 
